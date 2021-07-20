@@ -1,0 +1,13 @@
+syntax = "proto3";
+package constants;
+
+
+enum TimestampDuration {
+    YEAR = 0;
+    SIX_MONTHS = 2;
+    FOUR_WEEKS = 3;
+    TWO_WEEKS = 4;
+    ONE_WEEK = 5;
+    FIVE_DAYS = 6;
+    ONE_DAY = 7;
+}
