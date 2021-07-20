@@ -1,0 +1,15 @@
+syntax = "proto3";
+package constants;
+
+
+// unix timestamp durations
+// year = 31536000
+enum TimestampDuration {
+    uint64 YEAR = 1;
+    uint64 SIX_MONTHS = 2;
+    uint64 FOUR_WEEKS = 3;
+    uint64 TWO_WEEKS = 4;
+    uint64 ONE_WEEK = 5;
+    uint64 FIVE_DAYS = 6;
+    uint64 ONE_DAY = 7;
+}

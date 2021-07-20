@@ -1,0 +1,99 @@
+syntax = "proto3";
+package formulas;
+
+
+/* Formula commands represent formula input objects */
+message FormulaCommand {
+    /* R = c - (a/((x’-o)+(a/c)))) */
+    
+    message CurvedCalculation {
+        /* Unlock formula */
+        message Unlock {
+            int64 x = 1; // x’ = current unix timestamp
+            int64 o = 2; // o = start unix timestamp
+            int64 a = 3; // a = constant
+            int64 c = 4; // c = allocation
+        }
+    
+        /* Early Birds */
+        /* R = c - (a/d+b) */
+        message EarlyBirds {
+            int64 c = 1;
+            int64 a = 2;
+            int64 b = 3;
+            int64 d = 4;
+        }
+
+        /* R */
+        message CalculationResult {
+            int64 R = 1;
+        }
+    }
+
+    message LinearCalculation {
+        /* R = d * (a/t) */
+        message Unnamed {
+            int64 d = 1; // d = unix timestamp duration
+            int64 a = 2; // a = amount
+            int64 t = 3; // t = time to pay amount
+        }
+
+        /* ROI */
+        /* ROI = 100 * (g - c) / c */
+        /*
+        user with a $5000 investment and a 10% share in a farm that distributes $1000 per day will receive 10% of 365,000 = 36500
+        ROI = 100 * (36500 - 5000) / 5000 = 630%
+        */
+        message ROI {
+            int64 g = 1; // g = gain from investment
+            int64 c = 2; // c = cost of investment
+        }
+        
+        /* ROI annualized (ARR) */
+        /* ARR = 100 * ([(g-c)/c]^(1/d)-1) */
+        /*
+        after a month, user with a $5000 investment and a 10% share in a farm that distributes $1000 per day will receive 10% of 365,000 = 36500
+        ARR = 100 * (((36500 - 5000) / 5000)^(2)-1 = 3800%
+        after one year, user with a $5000 investment and a 10% share in a farm that distributes $1000 per day will receive 10% of 365,000 = 36500
+        ARR = 100 * (((36500 - 5000) / 5000)^(1/1)-1 = 530%
+        after two years, user with a $5000 investment and a 10% share in a farm that distributes $1000 per day will receive 10% of 730,000 = 73000
+        ARR = 100 * ((73000 - 5000)) / 5000)^(1/2)-1 = 268%
+        */
+        message ARR {
+            int64 g = 1; // g = gain from investment
+            int64 c = 2; // c = cost of investment
+            int64 d = 3; // d = holding period
+        }
+
+        /* APR - annual percentage rate */
+        /* APR = r * n */
+        /*
+        A credit card company might charge 1% interest each month. Therefore, the APR equals 12% (1% x 12 months = 12%).
+        */
+        message APR {
+            int64 r = 1; // r = periodic rate
+            int64 n = 2; // n = number of periods in a year
+        }
+
+        /* APY */
+        /* APY = (1 + r)^n – 1 */
+        /* The APY for a 1% rate of interest compounded monthly would be 12.68% [(1 + 0.01)^12 – 1 = 12.68%] a year. */
+        message APY {
+            int64 r = 1; // r = periodic rate
+            int64 n = 2; // n = number of periods in a year
+        }
+
+        /* TVL = total value locked */
+        /* TVL = p * n */
+        /* The APY for a 1% rate of interest compounded monthly would be 12.68% [(1 + 0.01)^12 – 1 = 12.68%] a year. */
+        message TVL {
+            int64 p = 1; // p = price of locked tokens in $ or GTON
+            int64 n = 2; // n = amount of locked tokens
+        }
+
+        /* R */
+        message CalculationResult {
+            int64 R = 1;
+        }
+    }
+}
